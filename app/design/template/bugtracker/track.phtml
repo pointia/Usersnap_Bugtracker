@@ -1,0 +1,13 @@
+<script type="text/javascript">
+    <?php echo $this->getJsonConfig(); ?>
+    <?php echo $this->getChildHtml(); ?>
+    (function() {
+        var s = document.createElement("script");
+        s.type = "text/javascript";
+        s.async = true;
+        s.src = '//api.usersnap.com/load/'+
+            '<?php echo $this->getApiKey(); ?>.js';
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+    })();
+</script>

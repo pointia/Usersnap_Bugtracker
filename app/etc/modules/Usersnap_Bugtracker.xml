@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<config>
+  <modules>
+    <Usersnap_Bugtracker>
+      <active>true</active>
+      <codePool>community</codePool>
+    </Usersnap_Bugtracker>
+  </modules>
+</config>

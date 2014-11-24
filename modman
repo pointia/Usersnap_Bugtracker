@@ -1,0 +1,11 @@
+app/etc/modules/*   app/etc/modules
+
+app/code/community/Usersnap/Bugtracker                      app/code/community/Usersnap/Bugtracker
+
+# Design files for Frontend and Adminhtml
+app/design/layout/*         app/design/frontend/base/default/layout/
+app/design/layout/*         app/design/adminhtml/base/default/layout/
+
+app/design/template/bugtracker app/design/frontend/base/default/template/bugtracker
+app/design/template/bugtracker app/design/adminhtml/base/default/template/bugtracker
+

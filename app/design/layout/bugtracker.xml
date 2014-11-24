@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<layout version="0.1.1">
+    <default>
+        <reference name="before_body_end">
+            <block type="bugtracker/track" name="usersnap.bugtracker" template="bugtracker/track.phtml" ifconfig="usersnap/options/enable">
+                <block type="bugtracker/debug" name="usersnap.debug" template="bugtracker/debug.phtml" ifconfig="usersnap/debug/enable"/>
+            </block>
+        </reference>
+    </default>
+    <customer_logged_in>
+        <reference name="usersnap.bugtracker">
+            <block type="bugtracker/customerEmail" name="usersnap.customerEmail" template="bugtracker/customerEmail.phtml" ifconfig="usersnap/display/email_replace" before="-"/>
+        </reference>
+    </customer_logged_in>
+</layout>

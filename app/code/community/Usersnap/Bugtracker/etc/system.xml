@@ -1,0 +1,214 @@
+<config>
+    <sections>
+        <usersnap translate="label" module="bugtracker">
+            <label>Usersnap Bugtracker</label>
+            <tab>advanced</tab>
+            <sort_order>110</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <options translate="label">
+                    <label>Options</label>
+                    <sort_order>100</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>1</expanded>
+                    <fields>
+                        <enable>
+                            <label>Enable Bugtracker</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Enables Bugtracker Widget]]></comment>
+                            <sort_order>0</sort_order>
+                        </enable>
+                        <api_key>
+                            <label>Project API Key</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>1</sort_order>
+                            <comment><![CDATA[The Project API Key can be found "General Settings" tab of your Project.]]></comment>
+                        </api_key>
+                        <tools>
+                            <label>Tools</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>2</sort_order>
+                            <comment><![CDATA[Comma separated list of the Usersnap tools. Leave empty for no restriction.
+                            Supported Tools can be found at <a target="_blank" href="https://usersnap.com/docs#tools">https://usersnap.com/docs#tools</a>]]></comment>
+                        </tools>
+                        <hide_tour>
+                            <label>Hide the guided tour</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Everytime your users open Usersnap for the first time, a guided tour and a help window is being displayed. If you don't want this window to show up per default, you can hide the initial tour window of Usersnap.]]></comment>
+                            <sort_order>3</sort_order>
+                        </hide_tour>
+                    </fields>
+                </options>
+                <display translate="label">
+                    <label>Display</label>
+                    <sort_order>110</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <show_button>
+                            <label>Show Feedback Button</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>0</sort_order>
+                        </show_button>
+                        <button_text>
+                            <label>Feedback Button Text</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>1</sort_order>
+                        </button_text>
+                        <enable_shortcut>
+                            <label>Enable Usersnap Shortcut</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>2</sort_order>
+                            <comment><![CDATA[Use a keyboard shortcut (Ctrl+U) to open Usersnap.</br>
+                           You can display the Usersnap widget with this shortcut even if the feedback button is hidden.]]></comment>
+                        </enable_shortcut>
+                        <show_email>
+                            <label>Show Email Field</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_nooptreq</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Show email field in widget]]></comment>
+                            <sort_order>3</sort_order>
+                        </show_email>
+                        <email_value>
+                            <label>Default Email Value</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>4</sort_order>
+                        </email_value>
+                        <email_replace>
+                            <label>Replace Default Email With User Email</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Replaces the default set email with the user email address.]]></comment>
+                            <sort_order>5</sort_order>
+                        </email_replace>
+                        <show_comment>
+                            <label>Show Comment Field</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_nooptreq</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment><![CDATA[Show comment field in widget]]></comment>
+                            <sort_order>6</sort_order>
+                        </show_comment>
+                        <comment_placeholder>
+                            <label>Comment Field Placeholder</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>7</sort_order>
+                        </comment_placeholder>
+                        <valign>
+                            <label>Vertical Align</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>bugtracker/system_config_source_valign</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>8</sort_order>
+                        </valign>
+                        <halign>
+                            <label>Horizontal Align</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>bugtracker/system_config_source_halign</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>9</sort_order>
+                        </halign>
+                        <language>
+                            <label>Widget Language</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>bugtracker/system_config_source_language</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>10</sort_order>
+                            <comment><![CDATA[If chosen language is not supported it will fall back to default.</br>
+                            Supported Languages can be found at <a target="_blank" href="https://usersnap.com/docs#language">https://usersnap.com/docs#language</a>]]></comment>
+                        </language>
+                    </fields>
+                </display>
+                <debug translate="label">
+                    <label>Debug</label>
+                    <sort_order>120</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <expanded>0</expanded>
+                    <fields>
+                        <enable>
+                            <label>Add Debug Information</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <sort_order>1</sort_order>
+                            <comment><![CDATA[Add additional Magento specific debug information to the Usersnap info object.]]>
+                            </comment>
+                        </enable>
+                    </fields>
+                </debug>
+            </groups>
+        </usersnap>
+    </sections>
+</config>
+
