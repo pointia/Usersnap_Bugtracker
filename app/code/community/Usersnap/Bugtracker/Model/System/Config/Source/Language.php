@@ -14,7 +14,7 @@ class Usersnap_Bugtracker_Model_System_Config_Source_Language extends Usersnap_B
         }
         if (empty($languages)) {
             $languages = array(
-                Usersnap_Bugtracker_Helper_Config::LANG_DEFAULT => $this->getHelper()->__("Default"),
+                ""  => $this->getHelper()->__("Default"),
                 Usersnap_Bugtracker_Helper_Config::LANG_STORE => $this->getHelper()->__("Store Specific Language")
             );
             $other_languages = Mage::app()->getLocale()->getTranslationList('language');

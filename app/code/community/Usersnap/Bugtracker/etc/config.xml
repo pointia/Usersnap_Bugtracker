@@ -121,19 +121,17 @@
         <usersnap>
             <options>
                 <enable>1</enable>
-                <show_email>opt</show_email>
-                <hide_tour>0</hide_tour>
             </options>
             <display>
-                <show_button>1</show_button>
-                <button_text>Feedback</button_text>
-                <enable_shortcut>1</enable_shortcut>
-                <show_email>1</show_email>
+                <hide_tour>-1</hide_tour>
+                <show_button>-1</show_button>
+                <enable_shortcut>-1</enable_shortcut>
+                <show_email>""</show_email>
                 <email_replace>1</email_replace>
-                <show_comment>req</show_comment>
-                <valign>bottom</valign>
-                <halign>right</halign>
-                <language>default</language>
+                <show_comment>""</show_comment>
+                <valign />
+                <halign />
+                <language />
             </display>
             <debug>
                 <enable>1</enable>

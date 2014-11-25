@@ -4,9 +4,8 @@ class Usersnap_Bugtracker_Helper_Config extends Mage_Core_Helper_Abstract {
 
     const XML_PATH_API_KEY = 'usersnap/options/api_key';
     const XML_PATH_ENABLE = 'usersnap/options/enable';
-    const XML_PATH_HIDE_TOUR = 'usersnap/options/hide_tour';
-    const XML_PATH_TOOLS = 'usersnap/options/tools';
-
+    const XML_PATH_HIDE_TOUR = 'usersnap/display/hide_tour';
+    const XML_PATH_TOOLS = 'usersnap/display/tools';
     const XML_PATH_DEBUG_ENABLE = 'usersnap/debug/enable';
     const XML_PATH_BUTTON_TEXT = 'usersnap/display/button_text';
     const XML_PATH_COMMENT_PLACEHOLDER = 'usersnap/display/comment_placeholder';
@@ -22,7 +21,6 @@ class Usersnap_Bugtracker_Helper_Config extends Mage_Core_Helper_Abstract {
 
     const USER_EMAIL = "{{USER_EMAIL}}";
 
-    const LANG_DEFAULT = "default";
     const LANG_STORE = "store";
 
     public function isEnabled(){
@@ -97,13 +95,10 @@ class Usersnap_Bugtracker_Helper_Config extends Mage_Core_Helper_Abstract {
     public function getLanguage()
     {
         $language = $this->getLanguageConfigValue();
-        if ($language != self::LANG_DEFAULT ) {
-            if ($language == self::LANG_STORE ) {
-                $language = Mage::app()->getLocale()->getLocale()->getLanguage();
-            }
-            return $language;
+        if ($language == self::LANG_STORE ) {
+            $language = Mage::app()->getLocale()->getLocale()->getLanguage();
         }
-        return "";
+        return $language;
     }
 
     public function isDebug(){

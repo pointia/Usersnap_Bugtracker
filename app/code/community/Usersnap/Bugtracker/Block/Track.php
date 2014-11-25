@@ -10,7 +10,7 @@ class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template{
      * @return mixed
      */
     public function getApiKey(){
-        return $this->getConfig()->getApiKey();
+        return $this->getConfigHelper()->getApiKey();
     }
 
     /**
@@ -18,7 +18,7 @@ class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template{
      * @return mixed
      */
     public function isEnabled(){
-        return $this->getConfig()->isEnabled();
+        return $this->getConfigHelper()->isEnabled();
     }
 
     /**
@@ -62,40 +62,53 @@ class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template{
     public function getConfigValues(){
         $config = array(
             'type' => 'magento',
-            'valign' => $this->getConfig()->getVerticalAlign(),
-            'halign' => $this->getConfig()->getHorizontalAlign(),
-            'btnText' => $this->getConfig()->getButtonText(),
-            'commentBoxPlaceholder' => $this->getConfig()->getCommentValue(),
-            'shortcut' => $this->getConfig()->isShortcutEnabled(),
-            'hideTour' => $this->getConfig()->getHideTour()
+            'valign' => $this->getConfigHelper()->getVerticalAlign(),
+            'halign' => $this->getConfigHelper()->getHorizontalAlign(),
+            'btnText' => $this->getConfigHelper()->getButtonText(),
+            'commentBoxPlaceholder' => $this->getConfigHelper()->getCommentValue(),
+            'shortcut' => $this->getConfigHelper()->isShortcutEnabled(),
+            'hideTour' => $this->getConfigHelper()->getHideTour()
         );
 
-        $language = $this->getConfig()->getLanguage();
+        $language = $this->getConfigHelper()->getLanguage();
         if ($language) {
             $config['lang'] = $language;
         }
 
-        $tools = $this->getConfig()->getTools();
+        $tools = $this->getConfigHelper()->getTools();
         if ($tools) {
-            $config ['tools'] = explode(",",str_replace(' ', '',$tools));
+            $config ['tools'] = array_filter(explode(",",str_replace(' ', '',$tools)));
         }
 
-        $noOptReqFields = array("email" => $this->getConfig()->getShowEmail(), "comment" => $this->getConfig()->getShowComment());
+        $noOptReqFields = array("email" => $this->getConfigHelper()->getShowEmail(), "comment" => $this->getConfigHelper()->getShowComment());
         foreach($noOptReqFields as $key => $config_value){
             switch($config_value){
-                case "" : $config[$key.'Box'] = false; break;
+                case "no" : $config[$key.'Box'] = false; break;
                 case "opt" : $config[$key.'Box'] = true; $config[$key.'Required'] = false; break;
-                case "req" : default: $config[$key.'Box'] = true; $config[$key.'Required'] = true; break;
+                case "req" : $config[$key.'Box'] = true; $config[$key.'Required'] = true; break;
+                default: break;
             }
         }
 
-        $emailBoxValue = $this->getConfig()->getEmailValue();
+        $emailBoxValue = $this->getConfigHelper()->getEmailValue();
         if ($emailBoxValue) {
             $config['emailBoxValue'] = $emailBoxValue;
         }
 
-        if (!$this->getConfig()->getShowButton()) {
+        if (!$this->getConfigHelper()->getShowButton()) {
             $config['mode'] = "report";
+        }
+
+        /**
+         * Filter Empty Values
+         */
+        foreach ($config as $key => $value){
+            if ($value === "" || $value === "-1" || $value === null) {
+                unset($config[$key]);
+            }
+        }
+        if (isset($config['shortcut'])) {
+            $config['shortcut'] = ((bool)$config['shortcut']);
         }
 
         return $config;
@@ -103,10 +116,9 @@ class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template{
 
 
     /**
-     * Config Helper
      * @return Usersnap_Bugtracker_Helper_Config
      */
-    protected function getConfig()
+    protected function getConfigHelper()
     {
         if (!$this->_configHelper) {
             $this->_configHelper = Mage::helper("bugtracker/config");
