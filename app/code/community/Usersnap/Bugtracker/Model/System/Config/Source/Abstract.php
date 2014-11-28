@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Used in creating options for config value selection
  *
@@ -15,12 +16,12 @@ class Usersnap_Bugtracker_Model_System_Config_Source_Abstract
      */
     public function toOptionArray()
     {
-        $option_array = array();
+        $optionArray = array();
         foreach ($this->_values as $key => $value) {
-            $option_array [] = array('value' => $key, 'label'=>$value);
+            $optionArray [] = array('value' => $key, 'label' => $value);
         }
 
-        return $option_array;
+        return $optionArray;
     }
 
     /**
@@ -36,7 +37,8 @@ class Usersnap_Bugtracker_Model_System_Config_Source_Abstract
     /**
      * @return Usersnap_Bugtracker_Helper_Data
      */
-    protected function getHelper(){
+    protected function getHelper()
+    {
         return Mage::helper("bugtracker");
     }
 

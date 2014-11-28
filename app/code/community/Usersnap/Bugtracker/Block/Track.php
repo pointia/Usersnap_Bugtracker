@@ -1,6 +1,7 @@
 <?php
 
-class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template{
+class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template
+{
 
     protected $_configHelper;
     protected $_config;
@@ -9,7 +10,8 @@ class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template{
      * Usersnap API Key
      * @return mixed
      */
-    public function getApiKey(){
+    public function getApiKey()
+    {
         return $this->getConfigHelper()->getApiKey();
     }
 
@@ -17,7 +19,8 @@ class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template{
      * Is Usersnap enabled?
      * @return mixed
      */
-    public function isEnabled(){
+    public function isEnabled()
+    {
         return $this->getConfigHelper()->isEnabled();
     }
 
@@ -25,7 +28,8 @@ class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template{
      * Don't display any output if Usesnap is disabled
      * @return string
      */
-    protected function _toHtml(){
+    protected function _toHtml()
+    {
         if ($this->isEnabled()) {
             return parent::_toHtml();
         }
@@ -37,15 +41,16 @@ class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template{
      *
      * @return string usersnap config values
      */
-    public function getJsonConfig(){
-        if(!$this->_config){
+    public function getJsonConfig()
+    {
+        if (!$this->_config) {
             $cacheKey = 'USERSNAP_CONFIG_JSON_STORE' . (string)Mage::app()->getStore()->getId();
             if (Mage::app()->useCache("config")) {
                 $json = Mage::app()->loadCache($cacheKey);
             }
             if (empty($json)) {
-                $config_array = $this->getConfigValues();
-                $json =  "var _usersnapconfig = " . Mage::helper("core")->jsonEncode($config_array) . "; ";
+                $configArray = $this->getConfigValues();
+                $json = "var _usersnapconfig = " . Mage::helper("core")->jsonEncode($configArray) . "; ";
                 if (Mage::app()->useCache('config')) {
                     Mage::app()->saveCache($json, $cacheKey, array('config'));
                 }
@@ -59,8 +64,9 @@ class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template{
      * Configured values from magento backend + modification to fit to Usersnap definition
      * @return array
      */
-    public function getConfigValues(){
-        $config = array(
+    public function getConfigValues()
+    {
+        $config = new Varien_Object(array(
             'type' => 'magento',
             'valign' => $this->getConfigHelper()->getVerticalAlign(),
             'halign' => $this->getConfigHelper()->getHorizontalAlign(),
@@ -68,52 +74,136 @@ class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template{
             'commentBoxPlaceholder' => $this->getConfigHelper()->getCommentValue(),
             'shortcut' => $this->getConfigHelper()->isShortcutEnabled(),
             'hideTour' => $this->getConfigHelper()->getHideTour()
-        );
+        ));
 
-        $language = $this->getConfigHelper()->getLanguage();
-        if ($language) {
-            $config['lang'] = $language;
-        }
+        $this->addLanguage($config);
+        $this->addTools($config);
+        $this->addEmail($config);
+        $this->addComment($config);
+        $this->addEmailValue($config);
+        $this->addShowButton($config);
 
-        $tools = $this->getConfigHelper()->getTools();
-        if ($tools) {
-            $config ['tools'] = array_filter(explode(",",str_replace(' ', '',$tools)));
-        }
+        $this->filterEmptyValues($config);
 
-        $noOptReqFields = array("email" => $this->getConfigHelper()->getShowEmail(), "comment" => $this->getConfigHelper()->getShowComment());
-        foreach($noOptReqFields as $key => $config_value){
-            switch($config_value){
-                case "no" : $config[$key.'Box'] = false; break;
-                case "opt" : $config[$key.'Box'] = true; $config[$key.'Required'] = false; break;
-                case "req" : $config[$key.'Box'] = true; $config[$key.'Required'] = true; break;
-                default: break;
-            }
-        }
-
-        $emailBoxValue = $this->getConfigHelper()->getEmailValue();
-        if ($emailBoxValue) {
-            $config['emailBoxValue'] = $emailBoxValue;
-        }
-
-        if (!$this->getConfigHelper()->getShowButton()) {
-            $config['mode'] = "report";
-        }
-
-        /**
-         * Filter Empty Values
-         */
-        foreach ($config as $key => $value){
-            if ($value === "" || $value === "-1" || $value === null) {
-                unset($config[$key]);
-            }
-        }
-        if (isset($config['shortcut'])) {
-            $config['shortcut'] = ((bool)$config['shortcut']);
-        }
+        $this->convertToBool($config, 'shortcut');
 
         return $config;
     }
 
+    /**
+     * Add Language Option
+     * @param Varien_Object $config
+     */
+    protected function addLanguage($config)
+    {
+        $language = $this->getConfigHelper()->getLanguage();
+        if ($language) {
+            $config->setData('lang', $language);
+        }
+    }
+
+    /**
+     * Add Tools Option
+     * @param Varien_Object $config
+     */
+    protected function addTools($config)
+    {
+        $tools = $this->getConfigHelper()->getTools();
+        if ($tools) {
+            $config->setData('tools', array_filter(explode(",", str_replace(' ', '', $tools))));
+        }
+    }
+
+    /**
+     * Add Email Option
+     * @param Varien_Object $config
+     */
+    protected function addEmail($config)
+    {
+        $this->addNoOptReqField($config, "email", $this->getConfigHelper()->getShowEmail());
+    }
+
+    /**
+     * Add Comment Option
+     * @param Varien_Object $config
+     */
+    protected function addComment($config)
+    {
+        $this->addNoOptReqField($config, "comment", $this->getConfigHelper()->getShowComment());
+    }
+
+    /**
+     * Crates No Optional Required Config Values
+     * @param Varien_Object $config
+     * @param $key
+     * @param $configValue
+     */
+    private function addNoOptReqField($config, $key, $configValue)
+    {
+        switch ($configValue) {
+            case "no" :
+                $config->setData($key . 'Box', false);
+                break;
+            case "opt" :
+                $config->setData($key . 'Box', true);
+                $config->setData($key . 'Required', false);
+                break;
+            case "req" :
+                $config->setData($key . 'Box', true);
+                $config->setData($key . 'Required', true);
+                break;
+            default:
+                break;
+        }
+    }
+
+    /**
+     * Add Default Email Value
+     * @param Varien_Object $config
+     */
+    protected function addEmailValue($config)
+    {
+        $emailBoxValue = $this->getConfigHelper()->getEmailValue();
+        if ($emailBoxValue) {
+            $config->setData('emailBoxValue', $emailBoxValue);
+        }
+    }
+
+    /**
+     * Hide Button if configured
+     * @param Varien_Object $config
+     */
+    protected function addShowButton($config)
+    {
+        if (!$this->getConfigHelper()->getShowButton()) {
+            $config->setData('mode', "report");
+        }
+    }
+
+    /**
+     * @param Varien_Object $config
+     * @param $key
+     */
+    protected function convertToBool($config, $key)
+    {
+        if ($config->hasData($key)) {
+            $config->setData($key, ((bool)$config->getData($key)));
+        }
+    }
+
+    /**
+     * Filter Empty Values
+     * @param Varien_Object $config
+     */
+    protected function filterEmptyValues($config)
+    {
+        $data = $config->getData();
+        foreach ($data as $key => $value) {
+            if ($value === "" || $value === "-1" || $value === null) {
+                $config->unsetData($key);
+            }
+        }
+    }
 
     /**
      * @return Usersnap_Bugtracker_Helper_Config

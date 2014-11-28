@@ -51,7 +51,12 @@ class Usersnap_Bugtracker_Model_Observer_Debug
     protected function getVersionInfo()
     {
         $items = array();
-        $items[] = array('module' => 'Magento', 'codePool' => 'core', 'active' => true, 'version' => Mage::getVersion());
+        $items[] = array(
+            'module' => 'Magento',
+            'codePool' => 'core',
+            'active' => true,
+            'version' => Mage::getVersion()
+        );
         $modulesConfig = Mage::getConfig()->getModuleConfig();
         foreach ($modulesConfig as $node) {
             foreach ($node as $module => $data) {
@@ -107,7 +112,7 @@ class Usersnap_Bugtracker_Model_Observer_Debug
      */
     protected function getCookieInfo()
     {
-        return Mage::helper("bugtracker")->escapeHtmlArray($_COOKIE);
+        return Mage::helper("bugtracker")->escapeHtmlArray(Mage::app()->getRequest()->getCookie());
     }
 
     /**
@@ -116,7 +121,7 @@ class Usersnap_Bugtracker_Model_Observer_Debug
      */
     protected function getSessionInfo()
     {
-        return Mage::helper("bugtracker")->escapeHtmlArray($_SESSION);
+        return Mage::helper("bugtracker")->escapeHtmlArray(Mage::getSingleton("core/session")->getData());
     }
 
     /**

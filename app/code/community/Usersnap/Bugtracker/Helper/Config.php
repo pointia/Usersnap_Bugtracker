@@ -1,6 +1,7 @@
 <?php
 
-class Usersnap_Bugtracker_Helper_Config extends Mage_Core_Helper_Abstract {
+class Usersnap_Bugtracker_Helper_Config extends Mage_Core_Helper_Abstract
+{
 
     const XML_PATH_API_KEY = 'usersnap/options/api_key';
     const XML_PATH_ENABLE = 'usersnap/options/enable';
@@ -23,7 +24,8 @@ class Usersnap_Bugtracker_Helper_Config extends Mage_Core_Helper_Abstract {
 
     const LANG_STORE = "store";
 
-    public function isEnabled(){
+    public function isEnabled()
+    {
         return Mage::getStoreConfig(self::XML_PATH_ENABLE);
     }
 
@@ -32,51 +34,63 @@ class Usersnap_Bugtracker_Helper_Config extends Mage_Core_Helper_Abstract {
         return Mage::getStoreConfig(self::XML_PATH_API_KEY);
     }
 
-    public function getTools(){
+    public function getTools()
+    {
         return Mage::getStoreConfig(self::XML_PATH_TOOLS);
     }
 
-    public function getHideTour(){
+    public function getHideTour()
+    {
         return Mage::getStoreConfig(self::XML_PATH_HIDE_TOUR);
     }
 
-    public function getShowButton(){
+    public function getShowButton()
+    {
         return Mage::getStoreConfig(self::XML_PATH_SHOW_BUTTON);
     }
 
-    public function getButtonText(){
+    public function getButtonText()
+    {
         return Mage::getStoreConfig(self::XML_PATH_BUTTON_TEXT);
     }
 
-    public function isShortcutEnabled(){
+    public function isShortcutEnabled()
+    {
         return Mage::getStoreConfig(self::XML_PATH_ENABLE_SHORTCUT);
     }
 
-    public function getShowEmail(){
+    public function getShowEmail()
+    {
         return Mage::getStoreConfig(self::XML_PATH_SHOW_EMAIL);
     }
 
-    public function getEmailValue(){
+    public function getEmailValue()
+    {
         return Mage::getStoreConfig(self::XML_PATH_EMAIL_VALUE);
     }
 
-    public function getReplaceEmail(){
+    public function getReplaceEmail()
+    {
         return Mage::getStoreConfig(self::XML_PATH_EMAIL_REPLACE);
     }
 
-    public function getShowComment(){
+    public function getShowComment()
+    {
         return Mage::getStoreConfig(self::XML_PATH_SHOW_COMMENT);
     }
 
-    public function getCommentValue(){
+    public function getCommentValue()
+    {
         return Mage::getStoreConfig(self::XML_PATH_COMMENT_PLACEHOLDER);
     }
 
-    public function getVerticalAlign(){
+    public function getVerticalAlign()
+    {
         return Mage::getStoreConfig(self::XML_PATH_VALIGN);
     }
 
-    public function getHorizontalAlign(){
+    public function getHorizontalAlign()
+    {
         return Mage::getStoreConfig(self::XML_PATH_HALIGN);
     }
 
@@ -84,7 +98,8 @@ class Usersnap_Bugtracker_Helper_Config extends Mage_Core_Helper_Abstract {
      * Returns the plain config value
      * @return string
      */
-    public function getLanguageConfigValue(){
+    public function getLanguageConfigValue()
+    {
         return Mage::getStoreConfig(self::XML_PATH_LANGUAGE);
     }
 
@@ -95,13 +110,14 @@ class Usersnap_Bugtracker_Helper_Config extends Mage_Core_Helper_Abstract {
     public function getLanguage()
     {
         $language = $this->getLanguageConfigValue();
-        if ($language == self::LANG_STORE ) {
+        if ($language == self::LANG_STORE) {
             $language = Mage::app()->getLocale()->getLocale()->getLanguage();
         }
         return $language;
     }
 
-    public function isDebug(){
+    public function isDebug()
+    {
         return Mage::getStoreConfig(self::XML_PATH_DEBUG_ENABLE);
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
-class Usersnap_Bugtracker_Model_Observer_Wishlist{
+class Usersnap_Bugtracker_Model_Observer_Wishlist
+{
 
     public function addWishlistInfo(Varien_Event_Observer $observer)
     {
@@ -14,21 +15,21 @@ class Usersnap_Bugtracker_Model_Observer_Wishlist{
      */
     protected function getWishlistInfo()
     {
-        $wishlist_info = array();
+        $wishlistInfo = array();
         if (!Mage::helper('core')->isModuleEnabled("Mage_Wishlist")) {
-            return $wishlist_info;
+            return $wishlistInfo;
         }
         $wishlistItems = Mage::helper('wishlist')->getWishlistItemCollection();
         if ($wishlistItems) {
             /** @var $item Mage_Wishlist_Model_Item */
             foreach ($wishlistItems as $item) {
-                $wishlist_info [] = array(
+                $wishlistInfo [] = array(
                     "product_id" => $item->getProduct()->getId(),
                     "product_sku" => $item->getProduct()->getSku(),
                     "product_name" => $item->getProduct()->getName(),
                 );
             }
         }
-        return $wishlist_info;
+        return $wishlistInfo;
     }
 }

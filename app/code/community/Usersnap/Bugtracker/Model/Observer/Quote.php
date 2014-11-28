@@ -1,6 +1,7 @@
 <?php
 
-class Usersnap_Bugtracker_Model_Observer_Quote {
+class Usersnap_Bugtracker_Model_Observer_Quote
+{
 
     public function addQuoteInfo(Varien_Event_Observer $observer)
     {
@@ -13,13 +14,13 @@ class Usersnap_Bugtracker_Model_Observer_Quote {
      */
     protected function getQuoteInfo()
     {
-        $quote_info = array();
+        $quoteInfo = array();
         if (!Mage::helper('core')->isModuleEnabled("Mage_Sales")) {
-            return $quote_info;
+            return $quoteInfo;
         }
         $quote = Mage::getModel('checkout/cart')->getQuote();
         if ($quote->getId()) {
-            $quote_info = array(
+            $quoteInfo = array(
                 "id" => $quote->getId(),
                 "quote_currency_code" => $quote->getQuoteCurrencyCode(),
                 "store_currency_code" => $quote->getStoreCurrencyCode(),
@@ -37,14 +38,14 @@ class Usersnap_Bugtracker_Model_Observer_Quote {
                 "items" => $this->getQuoteItems($quote)
             );
             if ($quote->getPayment() && $quote->getPayment()->getMethod()) {
-                $quote_info['payment_method'] = $quote->getPayment()->getMethod();
+                $quoteInfo['payment_method'] = $quote->getPayment()->getMethod();
             }
             if ($quote->getShippingAddress() && $quote->getShippingAddress()->getShippingMethod()) {
-                $quote_info['shipping_method'] = $quote->getShippingAddress()->getShippingMethod();
+                $quoteInfo['shipping_method'] = $quote->getShippingAddress()->getShippingMethod();
             }
         }
 
-        return $quote_info;
+        return $quoteInfo;
     }
 
     /**
