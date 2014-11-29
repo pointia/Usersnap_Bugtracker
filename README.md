@@ -1,3 +1,5 @@
+<img src="./usersnap_logo.png" />
+
 # Usersnap Bugtracker
 We've created a Usersnap Magento integration with some optional debug information.
 It is installed as a Magento module without hacking Magento's core.
