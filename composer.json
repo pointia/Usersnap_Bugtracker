@@ -1,6 +1,6 @@
 {
     "name": "usersnap/bugtracker",
-    "license": "GPLv3",
+    "license": "GPL-3.0+",
     "type": "magento-module",
     "description": "Usersnap Bugtracker Integration",
     "keywords": ["usersnap","bug","bugtracker","development"],
