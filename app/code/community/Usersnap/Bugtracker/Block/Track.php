@@ -21,7 +21,7 @@ class Usersnap_Bugtracker_Block_Track extends Mage_Core_Block_Template
      */
     public function isEnabled()
     {
-        return $this->getConfigHelper()->isEnabled();
+        return $this->getConfigHelper()->isEnabled() && $this->getApiKey();
     }
 
     /**
